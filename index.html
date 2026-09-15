@@ -1,76 +1,98 @@
 <!doctype html>
 <html lang="fa" dir="rtl">
 <head>
-<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Pouyan Trade Pro</title>
-<script src="https://unpkg.com/lightweight-charts@4.2.0/dist/lightweight-charts.standalone.production.js"></script>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>پویان ترید | DOGE</title>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 <style>
-:root{--bg:#06101d;--card:#0c1b2c;--line:#203b58;--txt:#edf5ff;--muted:#91a8c0;--blue:#299cff;--green:#18c96b;--red:#ef4055}
-*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--txt);font:14px Tahoma,Arial,sans-serif}body.light{--bg:#f3f6fa;--card:#fff;--line:#d6e0ea;--txt:#152238;--muted:#607086}.wrap{max-width:1500px;margin:auto;padding:14px}header{display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap}h1{margin:0;font-size:25px}.muted{color:var(--muted);font-size:12px}.row{display:flex;gap:7px;align-items:center;flex-wrap:wrap}.card{background:var(--card);border:1px solid var(--line);border-radius:15px;padding:13px;box-shadow:0 7px 24px #0002}.grid{display:grid;grid-template-columns:1.65fr 1fr;gap:12px;margin-top:12px}.full{grid-column:1/-1}button,select,input{border:1px solid var(--line);background:var(--card);color:inherit;border-radius:9px;padding:9px}button{cursor:pointer}.tabs button{padding:7px 12px}.signal{height:64px;border-radius:12px;margin:10px 0;display:flex;align-items:center;justify-content:center;color:white;font-weight:bold;font-size:25px}.buy{background:linear-gradient(90deg,#087a42,#20db72)}.sell{background:linear-gradient(90deg,#961c2c,#f04458)}.wait{background:linear-gradient(90deg,#135fa4,#37a9ff)}.stats{display:grid;grid-template-columns:repeat(5,1fr);gap:7px}.stat{border:1px solid var(--line);border-radius:10px;padding:9px}.stat b{display:block;font-size:15px;margin-top:5px}.chart{height:430px;margin-top:8px}.mini{display:inline-block;padding:5px 9px;border:1px solid var(--line);border-radius:99px;font-size:12px}.good{color:#21d777}.bad{color:#ff5b70}.blue{color:#46adff}table{width:100%;border-collapse:collapse}th,td{border-bottom:1px solid var(--line);padding:8px;text-align:right}.active{background:#0b3a27;border-color:#20d978}.session{display:flex;justify-content:space-between;padding:8px;border:1px solid var(--line);border-radius:9px;margin:5px 0}.news{padding:9px;border:1px solid var(--line);border-radius:9px;margin:6px 0}.tag{font-size:11px;padding:3px 7px;border-radius:20px}.danger{background:#5b1722}.positive{background:#0b4a2c}.neutral{background:#104a70}.meter{height:18px;border-radius:9px;background:linear-gradient(90deg,#ef4055,#299cff,#18c96b);position:relative}.needle{position:absolute;top:-4px;width:4px;height:26px;background:white;border-radius:3px}.sectiontitle{display:flex;justify-content:space-between;align-items:center}.hide{display:none}@media(max-width:950px){.grid{grid-template-columns:1fr}.stats{grid-template-columns:repeat(2,1fr)}.chart{height:340px}}
+*{box-sizing:border-box}body{margin:0;font-family:Tahoma,Arial,sans-serif;background:#0b1020;color:#eef2ff}
+.wrap{max-width:1100px;margin:auto;padding:18px}.top{display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap}
+h1{margin:0;font-size:25px}.sub{color:#9aa6c5;font-size:13px;margin-top:5px}
+.badge{padding:8px 12px;border-radius:20px;background:#17213d;color:#9ee7b0;font-size:12px}
+.grid{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-top:18px}
+.card{background:#121a30;border:1px solid #202b49;border-radius:16px;padding:16px;box-shadow:0 8px 30px #0002}
+.label{color:#93a0bf;font-size:12px}.value{font-size:23px;font-weight:700;margin-top:7px}
+.main{display:grid;grid-template-columns:2fr 1fr;gap:12px;margin-top:12px}
+.chartbox{height:390px}.signal{text-align:center}.signal .big{font-size:38px;font-weight:800;margin:18px 0 8px}
+.buy{color:#63e6a3}.sell{color:#ff7b8b}.wait{color:#ffd166}
+.row{display:flex;justify-content:space-between;padding:10px 0;border-bottom:1px solid #222d49;font-size:13px}
+button{width:100%;border:0;border-radius:12px;padding:12px;background:#26375e;color:white;font-weight:700;cursor:pointer;margin-top:12px}
+footer{color:#71809f;font-size:11px;text-align:center;margin:18px 0}
+@media(max-width:750px){.grid{grid-template-columns:repeat(2,1fr)}.main{grid-template-columns:1fr}.chartbox{height:300px}}
 </style>
 </head>
-<body><div class="wrap">
-<header><div><h1>🧠 Pouyan Trade Pro</h1><div class="muted" id="sub">تحلیل چندعاملی بازار رمزارز</div></div>
-<div class="row"><b id="clock"></b><button onclick="lang()">فارسی | English</button><button onclick="theme()">🌙/☀️</button><button onclick="notify()">🔔 اعلان</button><button onclick="sound()">🔊 تست صدا</button></div></header>
+<body>
+<div class="wrap">
+  <div class="top">
+    <div><h1>🚀 پویان ترید</h1><div class="sub">داشبورد تحلیل DOGE/USDT</div></div>
+    <div class="badge">● آنلاین</div>
+  </div>
 
-<div class="grid">
-<section class="card">
-<div class="row"><select id="coin"></select><select id="tf"><option value="5m">5m</option><option value="15m">15m</option><option value="1h">1h</option><option value="4h">4h</option></select><select id="ctype"><option value="candle">کندلی</option><option value="line">خطی</option><option value="bar">میله‌ای</option></select><button onclick="market()">↻ بروزرسانی</button></div>
-<div id="signal" class="signal wait">🟦 خنثی</div>
-<div class="stats"><div class="stat">قیمت<b id="price">—</b></div><div class="stat">24h<b id="change">—</b></div><div class="stat">حجم<b id="volume">—</b></div><div class="stat">RSI<b id="rsi">—</b></div><div class="stat">قدرت تحلیل<b id="strength">—</b></div></div>
-<div id="chart" class="chart"></div>
-</section>
+  <div class="grid">
+    <div class="card"><div class="label">قیمت DOGE</div><div class="value" id="price">در حال دریافت...</div></div>
+    <div class="card"><div class="label">تغییر ۲۴ ساعت</div><div class="value" id="change">—</div></div>
+    <div class="card"><div class="label">بیشترین ۲۴ ساعت</div><div class="value" id="high">—</div></div>
+    <div class="card"><div class="label">کمترین ۲۴ ساعت</div><div class="value" id="low">—</div></div>
+  </div>
 
-<section class="card"><div class="sectiontitle"><h3>🔎 تحلیل هوشمند پویان ترید</h3><span class="mini">چندعاملی</span></div>
-<p id="why">در حال دریافت داده...</p>
-<div class="meter"><i id="needle" class="needle" style="left:50%"></i></div>
-<div class="row" style="justify-content:space-between"><span>فروش</span><span>خنثی</span><span>خرید</span></div>
-<h3>🎯 سناریوی معاملاتی</h3><p id="plan">—</p>
-<div class="row"><span class="mini">EMA20: <b id="ema">—</b></span><span class="mini">MACD: <b id="macd">—</b></span><span class="mini">OI: <b id="oi">—</b></span><span class="mini">Funding: <b id="funding">—</b></span></div>
-<p class="muted">«قدرت تحلیل» امتیاز الگوریتمی است، نه احتمال تضمینی موفقیت. احتمال واقعی باید با بک‌تست تاریخی محاسبه شود.</p>
-</section>
+  <div class="main">
+    <div class="card chartbox"><canvas id="chart"></canvas></div>
+    <div class="card signal">
+      <div class="label">سیگنال الگوریتمی</div>
+      <div class="big wait" id="signal">صبر</div>
+      <div class="row"><span>RSI</span><b id="rsi">—</b></div>
+      <div class="row"><span>روند</span><b id="trend">—</b></div>
+      <div class="row"><span>قدرت سیگنال</span><b id="strength">—</b></div>
+      <button onclick="loadData()">به‌روزرسانی</button>
+    </div>
+  </div>
 
-<section class="card full"><div class="sectiontitle"><h3>📊 اسکن 100 کوین برتر</h3><button onclick="scan100()">اسکن اکنون</button></div>
-<p class="muted">رتبه‌بندی زنده بر پایه داده بازار عمومی. برای Top Traders، سفارشات بزرگ، CVD، لیکوئیدیشن و جریان نهنگ، اتصال API تخصصی لازم است.</p>
-<table><thead><tr><th>#</th><th>کوین</th><th>تغییر</th><th>حجم 24h</th><th>فشار</th><th>هشدار</th></tr></thead><tbody id="scan"></tbody></table></section>
-
-<section class="card"><h3>⚡ جهش فشار خرید/فروش</h3><p class="muted">سیستم باید تغییر ناگهانی نسبت خرید/فروش را با حجم، معاملات بزرگ و OI تأیید کند تا سیگنال کاذب کمتر شود.</p><div id="pressureList">در حال اسکن...</div></section>
-<section class="card"><h3>🐋 معامله‌گران بزرگ و نهنگ‌ها</h3>
-<div class="row"><span class="mini">Top Traders Long/Short</span><span class="mini">Taker Buy/Sell</span><span class="mini">CVD</span><span class="mini">Liquidations</span><span class="mini">Large Orders</span><span class="mini">Netflow</span><span class="mini">On-chain</span></div>
-<p class="muted">این قسمت در نسخه نهایی با CoinGlass/داده آن‌چین تغذیه می‌شود؛ عدد ساختگی نمایش داده نمی‌شود.</p></section>
-
-<section class="card"><h3>🌍 جلسات بازار جهانی</h3><div id="sessions"></div><p class="muted">کریپتو 24/7 است؛ ساعات بازار سهام/FX به‌عنوان عامل زمینه‌ای استفاده می‌شوند.</p></section>
-<section class="card"><h3>🏦 اقتصاد کلان</h3><div class="row"><span class="mini">Fed</span><span class="mini">CPI</span><span class="mini">NFP</span><span class="mini">DXY</span><span class="mini">US10Y</span><span class="mini">Liquidity</span><span class="mini">GDP</span><span class="mini">ECB</span><span class="mini">BoE</span><span class="mini">BoJ</span></div><p class="muted">اتصال تقویم اقتصادی و داده زنده برای اثرگذاری مستقیم بر سیگنال نیازمند API اقتصادی است.</p></section>
-
-<section class="card"><h3>📰 اخبار تأثیرگذار بازار</h3><div class="news"><span class="tag neutral">آماده اتصال</span> خبر زنده + منبع + زمان + کوین‌های متاثر + اثر مثبت/منفی/نامشخص</div><div class="news">اخبار متناقض، قدرت سیگنال را کاهش می‌دهند.</div></section>
-<section class="card"><h3>⭐ افراد/نهادهای مشهور</h3><p>فقط دارایی، سرمایه‌گذاری یا حمایت <b>عمومی و قابل‌استناد</b> نمایش داده می‌شود؛ شایعات درباره دارایی خصوصی افراد حذف می‌شود.</p></section>
-
-<section class="card full"><h3>⏱️ اعلان و اعتبار سیگنال</h3><div class="row"><label><input id="auto" type="checkbox" checked> بروزرسانی خودکار</label><label>بازه <select id="interval"><option>30</option><option selected>60</option><option>120</option></select> ثانیه</label><label><input id="alertChange" type="checkbox" checked> اعلان تغییر سیگنال</label></div><p class="muted">اعلان مرورگر و صدا پس از اجازه کاربر فعال می‌شود.</p></section>
-
-<section class="card full"><h3>⚙️ پنل مدیر و تنظیمات</h3><div class="row"><label>عنوان <input id="adminTitle" value="Pouyan Trade Pro"></label><label>تعداد اسکن <select id="adminN"><option>20</option><option>50</option><option selected>100</option></select></label><label>تم <select id="adminTheme"><option value="dark">تیره</option><option value="light">روشن</option></select></label><button onclick="saveAdmin()">ذخیره</button></div><p class="muted">برای ورود امن مدیر/چندکاربره، احراز هویت باید در backend انجام شود؛ رمز عبور داخل این فایل ذخیره نمی‌شود.</p></section>
-
-<section class="card full"><h3>🧪 بک‌تست و احتمال موفقیت</h3><p>برای نمایش «احتمال موفقیت»، نسخه کامل باید روی داده تاریخی هر استراتژی بک‌تست بگیرد و <b>Win Rate، تعداد معاملات، Profit Factor و Drawdown</b> را گزارش کند. تا اتصال موتور بک‌تست، درصد ساختگی نشان داده نمی‌شود.</p></section>
-</div></div>
+  <div class="card" style="margin-top:12px">
+    <b>📊 تحلیل سریع</b>
+    <p id="analysis" class="sub">در حال محاسبه...</p>
+  </div>
+  <footer>پویان ترید — نسخه آزمایشی. اطلاعات بازار برای تحلیل است و تضمین سود نیست.</footer>
+</div>
 
 <script>
-const coins=["BTCUSDT","ETHUSDT","BNBUSDT","XRPUSDT","SOLUSDT","DOGEUSDT","ADAUSDT","AVAXUSDT","LINKUSDT","DOTUSDT","TRXUSDT","TONUSDT","SUIUSDT","LTCUSDT","BCHUSDT","UNIUSDT","ATOMUSDT","NEARUSDT","APTUSDT","ETCUSDT","FILUSDT","HBARUSDT","ICPUSDT","XLMUSDT","ALGOUSDT","AAVEUSDT","MKRUSDT","ARBUSDT","OPUSDT","INJUSDT","SEIUSDT","TIAUSDT","PEPEUSDT","SHIBUSDT","FLOKIUSDT","WIFUSDT","BONKUSDT","STXUSDT","IMXUSDT","RUNEUSDT","GRTUSDT","SANDUSDT","MANAUSDT","AXSUSDT","EGLDUSDT","FTMUSDT","LDOUSDT","ETCUSDT","XMRUSDT","ZECUSDT","DASHUSDT","EOSUSDT","KASUSDT","TAOUSDT","JASMYUSDT","CRVUSDT","SNXUSDT","COMPUSDT","MATICUSDT","FLOWUSDT","THETAUSDT","APEUSDT","GALAUSDT","MINAUSDT","ROSEUSDT","IOTAUSDT","VETUSDT","ONEUSDT","ENJUSDT","CHZUSDT","1INCHUSDT","CAKEUSDT","KAVAUSDT","QTUMUSDT","ZILUSDT","BATUSDT","YFIUSDT","SUSHIUSDT","ANKRUSDT","CELOUSDT","DYDXUSDT","WOOUSDT","LUNCUSDT","GMTUSDT","MASKUSDT","ENSUSDT","BLURUSDT","PYTHUSDT","JTOUSDT","JUPUSDT","WLDUSDT","STRKUSDT","NOTUSDT","ORDIUSDT","SATSUSDT","BOMEUSDT","ENAUSDT","ONDOUSDT","PENDLEUSDT","RAYUSDT","JUPUSDT"];
-const $=x=>document.getElementById(x);let chart,lastSignal="",language="fa";
-coins.forEach(c=>{let o=document.createElement("option");o.value=c;o.textContent=c.replace("USDT","");$("coin").appendChild(o)});
-function ema(a,p){let k=2/(p+1),e=a[0],r=[];a.forEach((v,i)=>{e=i?e+k*(v-e):v;r.push(e)});return r}
-function calcRSI(a,p=14){let g=0,l=0;for(let i=a.length-p;i<a.length;i++){let d=a[i]-a[i-1];if(d>0)g+=d;else l-=d}return 100-100/(1+g/Math.max(l,1e-9))}
-function fmt(n){return Number(n).toLocaleString(undefined,{maximumFractionDigits:8})}
-function setSignal(s,score){let e=$("signal");e.className="signal "+(s==="BUY"?"buy":s==="SELL"?"sell":"wait");e.textContent=s==="BUY"?"🟩 خرید":s==="SELL"?"🟥 فروش":"🟦 خنثی";$("needle").style.left=Math.max(1,Math.min(99,score))+"%";if(lastSignal&&lastSignal!==s&&$("alertChange").checked){if(Notification.permission==="granted")new Notification("Pouyan Trade",{body:"سیگنال جدید: "+s});beep()}lastSignal=s}
-function beep(){try{let a=new AudioContext(),o=a.createOscillator(),g=a.createGain();o.connect(g);g.connect(a.destination);o.frequency.value=700;g.gain.value=.04;o.start();o.stop(a.currentTime+.25)}catch{}}
-function sound(){beep()}
-function notify(){if("Notification"in window)Notification.requestPermission()}
-async function market(){let sym=$("coin").value,tf=$("tf").value;try{let k=await fetch(`https://api.binance.com/api/v3/klines?symbol=${sym}&interval=${tf}&limit=150`).then(r=>r.json());let c=k.map(x=>+x[4]),v=k.map(x=>+x[5]),p=c.at(-1),R=calcRSI(c),E=ema(c,20).at(-1),mom=p-c.at(-10);let score=50+(R<35?18:R>65?-18:0)+(p>E?12:-12)+(mom>0?12:-12);let s=score>=70?"BUY":score<=30?"SELL":"WAIT";setSignal(s,score);$("price").textContent=fmt(p);$("change").textContent=((p/c[0]-1)*100).toFixed(2)+"%";$("volume").textContent=fmt(v.reduce((a,b)=>a+b,0));$("rsi").textContent=R.toFixed(1);$("strength").textContent=score.toFixed(0)+"/100";$("ema").textContent=p>E?"صعودی":"نزولی";$("macd").textContent=mom>0?"مثبت":"منفی";$("why").textContent=`RSI ${R.toFixed(1)} | EMA20 ${p>E?"بالا":"پایین"} | مومنتوم ${mom>0?"مثبت":"منفی"}؛ نتیجه با ترکیب عوامل تولید شد.`;$("plan").textContent=s==="BUY"?`ورود ${fmt(p)} | SL ${fmt(p*.985)} | TP1 ${fmt(p*1.02)} | TP2 ${fmt(p*1.04)} | اهرم آموزشی حداکثر 2x`:s==="SELL"?`ورود ${fmt(p)} | SL ${fmt(p*1.015)} | TP1 ${fmt(p*.98)} | TP2 ${fmt(p*.96)} | اهرم آموزشی حداکثر 2x`:"فعلاً WAIT؛ منتظر تأیید چندعاملی بمان.";try{$("oi").textContent=fmt((await fetch(`https://fapi.binance.com/fapi/v1/openInterest?symbol=${sym}`).then(r=>r.json())).openInterest)}catch{$("oi").textContent="—"}try{$("funding").textContent=(+(await fetch(`https://fapi.binance.com/fapi/v1/premiumIndex?symbol=${sym}`).then(r=>r.json())).lastFundingRate*100).toFixed(4)+"%"}catch{$("funding").textContent="—"}draw(k)}catch{$("why").textContent="API بازار در این شبکه/منطقه در دسترس نیست یا اتصال قطع شده است."}}
-function draw(k){if(chart)chart.remove();chart=LightweightCharts.createChart($("chart"),{layout:{background:{type:"solid",color:"transparent"},textColor:"#9fb4cc"},grid:{vertLines:{visible:false},horzLines:{visible:false}},timeScale:{timeVisible:true}});let d=k.map(x=>({time:x[0]/1000,open:+x[1],high:+x[2],low:+x[3],close:+x[4]})),t=$("ctype").value,s;if(t==="candle")s=chart.addCandlestickSeries();else if(t==="bar")s=chart.addBarSeries();else s=chart.addLineSeries();s.setData(t==="line"?d.map(x=>({time:x.time,value:x.close})):d);chart.timeScale().fitContent()}
-async function scan100(){let a=[];for(let s of coins){try{let d=await fetch(`https://api.binance.com/api/v3/ticker/24hr?symbol=${s}`).then(r=>r.json());a.push(d)}catch{}}a.sort((x,y)=>Math.abs(+y.priceChangePercent)-Math.abs(+x.priceChangePercent));$("scan").innerHTML=a.slice(0,100).map((d,i)=>{let q=+d.priceChangePercent;let p=q>2?"🟩 خرید":q<-2?"🟥 فروش":"🟦 خنثی";return `<tr><td>${i+1}</td><td>${d.symbol.replace("USDT","")}</td><td class="${q>0?"good":"bad"}">${q.toFixed(2)}%</td><td>${fmt(+d.quoteVolume)}</td><td>${p}</td><td>${Math.abs(q)>5?"⚡ جهش":"—"}</td></tr>`}).join("");$("pressureList").innerHTML=a.slice(0,8).map(d=>`<div class="news"><b>${d.symbol.replace("USDT","")}</b> — ${(+d.priceChangePercent).toFixed(2)}% — حجم ${fmt(+d.quoteVolume)} — ${Math.abs(+d.priceChangePercent)>5?"⚡ تغییر شدید":"تغییر معمولی"}</div>`).join("")||"داده‌ای دریافت نشد."}
-function sessions(){let h=new Date().getUTCHours()+new Date().getUTCMinutes()/60;let z=[["Sydney",22,7],["Tokyo",0,9],["Hong Kong",1.5,8.5],["Singapore",1,9],["London",8,16.5],["New York",13.5,20]];$("sessions").innerHTML=z.map(x=>{let on=x[1]<x[2]?h>=x[1]&&h<x[2]:h>=x[1]||h<x[2];return `<div class="session ${on?"active":""}"><b>${x[0]}</b><span>${x[1]}–${x[2]} UTC ${on?"🟢 فعال":"⚪"}</span></div>`}).join("")}
-function clock(){let d=new Date();$("clock").textContent=d.toLocaleString(language==="fa"?"fa-IR":"en-US");sessions()}setInterval(clock,1000);clock()
-function theme(){document.body.classList.toggle("light");localStorage.ptTheme=document.body.classList.contains("light")?"light":"dark"}
-function lang(){language=language==="fa"?"en":"fa";document.documentElement.lang=language;document.documentElement.dir=language==="fa"?"rtl":"ltr";$("sub").textContent=language==="fa"?"تحلیل چندعاملی بازار رمزارز":"Multi-factor Crypto Market Analysis";clock()}
-function saveAdmin(){document.querySelector("h1").textContent="🧠 "+$("adminTitle").value;if($("adminTheme").value==="light"&&!document.body.classList.contains("light"))theme();if($("adminTheme").value==="dark"&&document.body.classList.contains("light"))theme();localStorage.ptAdmin=JSON.stringify({title:$("adminTitle").value,n:$("adminN").value})}
-$("coin").onchange=$("tf").onchange=$("ctype").onchange=market;
-if(localStorage.ptTheme==="light")theme();market();scan100();setInterval(()=>{if($("auto").checked){market();scan100()}},60000);
-</script></body></html>
+const API='https://api.binance.com/api/v3';
+let chart;
+
+function fmt(n){return Number(n).toLocaleString('en-US',{maximumFractionDigits:6})}
+function calcRSI(closes){
+  if(closes.length<15)return 50;
+  let gains=0,losses=0;
+  for(let i=closes.length-14;i<closes.length;i++){
+    const d=closes[i]-closes[i-1]; if(d>=0)gains+=d;else losses-=d;
+  }
+  if(losses===0)return 100;
+  return 100-(100/(1+gains/losses));
+}
+async function loadData(){
+ try{
+  const [ticker,klines]=await Promise.all([
+    fetch(API+'/ticker/24hr?symbol=DOGEUSDT').then(r=>r.json()),
+    fetch(API+'/klines?symbol=DOGEUSDT&interval=5m&limit=80').then(r=>r.json())
+  ]);
+  const closes=klines.map(x=>+x[4]), labels=klines.map(x=>new Date(x[0]).toLocaleTimeString('fa-IR',{hour:'2-digit',minute:'2-digit'}));
+  const rsi=calcRSI(closes), sma20=closes.slice(-20).reduce((a,b)=>a+b,0)/20, last=closes.at(-1);
+  let sig='صبر', cls='wait', trend='خنثی', strength='متوسط';
+  if(last>sma20 && rsi<70){sig='خرید';cls='buy';trend='صعودی';strength=rsi>55?'قوی':'متوسط'}
+  else if(last<sma20 && rsi>30){sig='فروش';cls='sell';trend='نزولی';strength=rsi<45?'قوی':'متوسط'}
+  document.getElementById('price').textContent=fmt(ticker.last);
+  document.getElementById('change').textContent=fmt(ticker.priceChangePercent)+'%';
+  document.getElementById('high').textContent=fmt(ticker.highPrice);
+  document.getElementById('low').textContent=fmt(ticker.lowPrice);
+  document.getElementById('rsi').textContent=rsi.toFixed(1);
+  document.getElementById('trend').textContent=trend;
+  document.getElementById('strength').textContent=strength;
+  const s=document.getElementById('signal');s.textContent=sig;s.className='big '+cls;
+  document.getElementById('analysis').textContent=`قیمت فعلی نسبت به میانگین ۲۰ کندل ${last>sma20?'بالاتر':'پایین‌تر'} است و RSI برابر ${rsi.toFixed(1)} محاسبه شد.`;
+  if(chart)chart.destroy();
+  chart=new Chart(document.getElementById('chart'),{type:'line',data:{labels,datasets:[{label:'DOGE/USDT',data:closes,tension:.25,pointRadius:0}]},options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false}},scales:{x:{ticks:{color:'#7f8bab',maxTicksLimit:8}},y:{ticks:{color:'#7f8bab'}}}}});
+ }catch(e){document.getElementById('analysis').textContent='دریافت اطلاعات بازار انجام نشد؛ اتصال اینترنت یا دسترسی به API را بررسی کنید.'}
+}
+loadData(); setInterval(loadData,60000);
+</script>
+</body></html>
