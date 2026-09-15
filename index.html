@@ -1,98 +1,40 @@
 <!doctype html>
-<html lang="fa" dir="rtl">
-<head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
-<title>پویان ترید | DOGE</title>
-<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-<style>
-*{box-sizing:border-box}body{margin:0;font-family:Tahoma,Arial,sans-serif;background:#0b1020;color:#eef2ff}
-.wrap{max-width:1100px;margin:auto;padding:18px}.top{display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap}
-h1{margin:0;font-size:25px}.sub{color:#9aa6c5;font-size:13px;margin-top:5px}
-.badge{padding:8px 12px;border-radius:20px;background:#17213d;color:#9ee7b0;font-size:12px}
-.grid{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-top:18px}
-.card{background:#121a30;border:1px solid #202b49;border-radius:16px;padding:16px;box-shadow:0 8px 30px #0002}
-.label{color:#93a0bf;font-size:12px}.value{font-size:23px;font-weight:700;margin-top:7px}
-.main{display:grid;grid-template-columns:2fr 1fr;gap:12px;margin-top:12px}
-.chartbox{height:390px}.signal{text-align:center}.signal .big{font-size:38px;font-weight:800;margin:18px 0 8px}
-.buy{color:#63e6a3}.sell{color:#ff7b8b}.wait{color:#ffd166}
-.row{display:flex;justify-content:space-between;padding:10px 0;border-bottom:1px solid #222d49;font-size:13px}
-button{width:100%;border:0;border-radius:12px;padding:12px;background:#26375e;color:white;font-weight:700;cursor:pointer;margin-top:12px}
-footer{color:#71809f;font-size:11px;text-align:center;margin:18px 0}
-@media(max-width:750px){.grid{grid-template-columns:repeat(2,1fr)}.main{grid-template-columns:1fr}.chartbox{height:300px}}
-</style>
-</head>
-<body>
-<div class="wrap">
-  <div class="top">
-    <div><h1>🚀 پویان ترید</h1><div class="sub">داشبورد تحلیل DOGE/USDT</div></div>
-    <div class="badge">● آنلاین</div>
-  </div>
+<html lang="fa" dir="rtl"><head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>پویان ترید PRO | DOGE</title>
+<link rel="stylesheet" href="style.css">
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.4/dist/chart.umd.min.js"></script>
+</head><body>
+<header><div class="brand"><b>PT</b><div><h1>پویان ترید PRO</h1><small>DOGE/USDT • داشبورد تحلیل بازار</small></div></div>
+<div class="live"><i></i><span id="conn">در حال اتصال</span></div></header>
+<main>
+<section class="top"><div><h2>مرکز تحلیل هوشمند DOGE</h2><p>داده بازار زنده + تحلیل چندشاخصی + مدیریت ریسک</p></div>
+<div class="actions"><select id="tf"><option>1m</option><option>5m</option><option selected>15m</option><option>1h</option><option>4h</option><option>1d</option></select><button onclick="load()">↻ بروزرسانی</button></div></section>
 
-  <div class="grid">
-    <div class="card"><div class="label">قیمت DOGE</div><div class="value" id="price">در حال دریافت...</div></div>
-    <div class="card"><div class="label">تغییر ۲۴ ساعت</div><div class="value" id="change">—</div></div>
-    <div class="card"><div class="label">بیشترین ۲۴ ساعت</div><div class="value" id="high">—</div></div>
-    <div class="card"><div class="label">کمترین ۲۴ ساعت</div><div class="value" id="low">—</div></div>
-  </div>
+<section class="ticker">
+<div><small>قیمت</small><strong id="price">—</strong><em id="chg">—</em></div>
+<div><small>24h High</small><strong id="hi">—</strong></div><div><small>24h Low</small><strong id="lo">—</strong></div>
+<div><small>حجم 24h</small><strong id="vol">—</strong></div><div><small>معاملات</small><strong id="trades">—</strong></div>
+</section>
 
-  <div class="main">
-    <div class="card chartbox"><canvas id="chart"></canvas></div>
-    <div class="card signal">
-      <div class="label">سیگنال الگوریتمی</div>
-      <div class="big wait" id="signal">صبر</div>
-      <div class="row"><span>RSI</span><b id="rsi">—</b></div>
-      <div class="row"><span>روند</span><b id="trend">—</b></div>
-      <div class="row"><span>قدرت سیگنال</span><b id="strength">—</b></div>
-      <button onclick="loadData()">به‌روزرسانی</button>
-    </div>
-  </div>
+<section class="signalbox"><div><small>سیگنال ترکیبی</small><strong id="signal">—</strong><span id="confidence">—</span></div>
+<div><small>امتیاز خرید</small><b id="buyScore">—</b></div><div><small>امتیاز فروش</small><b id="sellScore">—</b></div>
+<div><small>روند</small><b id="trend">—</b></div><div><small>ریسک</small><b id="risk">—</b></div></section>
 
-  <div class="card" style="margin-top:12px">
-    <b>📊 تحلیل سریع</b>
-    <p id="analysis" class="sub">در حال محاسبه...</p>
-  </div>
-  <footer>پویان ترید — نسخه آزمایشی. اطلاعات بازار برای تحلیل است و تضمین سود نیست.</footer>
-</div>
+<section class="grid2"><div class="panel chart"><div class="head"><h3>نمودار قیمت</h3><span id="stamp">—</span></div><canvas id="chart"></canvas></div>
+<div class="panel"><div class="head"><h3>سنجه‌های تکنیکال</h3><span>Live calculation</span></div><div id="metrics"></div></div></section>
 
-<script>
-const API='https://api.binance.com/api/v3';
-let chart;
+<section class="cards">
+<div class="panel"><div class="head"><h3>حمایت / مقاومت</h3></div><div id="levels"></div></div>
+<div class="panel"><div class="head"><h3>ورود و مدیریت معامله</h3></div><div id="trade"></div></div>
+<div class="panel"><div class="head"><h3>قدرت بازار</h3></div><div id="market"></div></div>
+</section>
 
-function fmt(n){return Number(n).toLocaleString('en-US',{maximumFractionDigits:6})}
-function calcRSI(closes){
-  if(closes.length<15)return 50;
-  let gains=0,losses=0;
-  for(let i=closes.length-14;i<closes.length;i++){
-    const d=closes[i]-closes[i-1]; if(d>=0)gains+=d;else losses-=d;
-  }
-  if(losses===0)return 100;
-  return 100-(100/(1+gains/losses));
-}
-async function loadData(){
- try{
-  const [ticker,klines]=await Promise.all([
-    fetch(API+'/ticker/24hr?symbol=DOGEUSDT').then(r=>r.json()),
-    fetch(API+'/klines?symbol=DOGEUSDT&interval=5m&limit=80').then(r=>r.json())
-  ]);
-  const closes=klines.map(x=>+x[4]), labels=klines.map(x=>new Date(x[0]).toLocaleTimeString('fa-IR',{hour:'2-digit',minute:'2-digit'}));
-  const rsi=calcRSI(closes), sma20=closes.slice(-20).reduce((a,b)=>a+b,0)/20, last=closes.at(-1);
-  let sig='صبر', cls='wait', trend='خنثی', strength='متوسط';
-  if(last>sma20 && rsi<70){sig='خرید';cls='buy';trend='صعودی';strength=rsi>55?'قوی':'متوسط'}
-  else if(last<sma20 && rsi>30){sig='فروش';cls='sell';trend='نزولی';strength=rsi<45?'قوی':'متوسط'}
-  document.getElementById('price').textContent=fmt(ticker.last);
-  document.getElementById('change').textContent=fmt(ticker.priceChangePercent)+'%';
-  document.getElementById('high').textContent=fmt(ticker.highPrice);
-  document.getElementById('low').textContent=fmt(ticker.lowPrice);
-  document.getElementById('rsi').textContent=rsi.toFixed(1);
-  document.getElementById('trend').textContent=trend;
-  document.getElementById('strength').textContent=strength;
-  const s=document.getElementById('signal');s.textContent=sig;s.className='big '+cls;
-  document.getElementById('analysis').textContent=`قیمت فعلی نسبت به میانگین ۲۰ کندل ${last>sma20?'بالاتر':'پایین‌تر'} است و RSI برابر ${rsi.toFixed(1)} محاسبه شد.`;
-  if(chart)chart.destroy();
-  chart=new Chart(document.getElementById('chart'),{type:'line',data:{labels,datasets:[{label:'DOGE/USDT',data:closes,tension:.25,pointRadius:0}]},options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false}},scales:{x:{ticks:{color:'#7f8bab',maxTicksLimit:8}},y:{ticks:{color:'#7f8bab'}}}}});
- }catch(e){document.getElementById('analysis').textContent='دریافت اطلاعات بازار انجام نشد؛ اتصال اینترنت یا دسترسی به API را بررسی کنید.'}
-}
-loadData(); setInterval(loadData,60000);
-</script>
-</body></html>
+<section class="grid2"><div class="panel"><div class="head"><h3>Order Book • سفارش‌های بزرگ</h3></div>
+<div class="bookbar"><span id="bidbar">خرید —</span><span id="askbar">فروش —</span></div><div id="orders"></div>
+<p class="muted">فشار خرید/فروش از دفتر سفارش عمومی محاسبه می‌شود؛ هویت معامله‌گران مشخص قابل تشخیص نیست.</p></div>
+<div class="panel"><div class="head"><h3>تحلیل چندلایه</h3></div><div id="reasons"></div></div></section>
+
+<section class="panel"><div class="head"><h3>وضعیت تایم‌فریم‌ها</h3></div><div class="timeframes" id="timeframes"></div></section>
+<footer>پویان ترید PRO — ابزار تحلیلی و آموزشی است؛ سیگنال‌ها تضمین سود یا توصیه مالی قطعی نیستند.</footer>
+</main><script src="app.js"></script></body></html>
